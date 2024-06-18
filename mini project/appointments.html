@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Appointment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url("https://www.healthworkscollective.com/wp-content/uploads/2021/03/doctor-appointment.jpg");
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .appointment-form {
+            background-color: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .appointment-form h2 {
+            margin-bottom: 1em;
+        }
+        .appointment-form .form-group {
+            margin-bottom: 1em;
+        }
+        .appointment-form .form-group label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+        .appointment-form .form-group input,
+        .appointment-form .form-group textarea {
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .appointment-form .form-group input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .appointment-form .form-group input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1em;
+        }
+        .button-group button {
+            width: calc(25% - 10px);
+            padding: 0.5em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="appointment-form">
+    <h2>Book an Appointment</h2>
+    <form id="appointmentForm">
+        <div class="form-group">
+            <label for="patientId">Patient ID:</label>
+            <input type="text" id="patientId" name="patientId" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Patient Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Preferred Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label for="time">Preferred Time:</label>
+            <input type="time" id="time" name="time" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Additional Information:</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+        <div class="button-group">
+            <button type="submit" onclick="set('/insert', event)">Book</button>
+            <button type="submit" onclick="set('/delete', event)">Cancel</button>
+            <button type="submit" onclick="set('/update', event)">Update</button>
+            <button type="submit" onclick="set('/display', event)">Display</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function set(path, event) {
+        event.preventDefault(); // Prevent default form submission behavior
+        document.getElementById('appointmentForm').action = 'http://localhost:8080' + path;
+        document.getElementById('appointmentForm').submit(); // Submit the form after setting the action
+    }
+
+    document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Basic form validation
+        const patientId = document.getElementById('patientId').value;
+        const name = document.getElementById('name').value;
+        const contact = document.getElementById('contact').value;
+        const email = document.getElementById('email').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+
+        if (patientId && name && contact && email && date && time) {
+            alert('Appointment booked successfully!');
+            // Here, you would typically send the form data to the server
+            // For example, using fetch() or XMLHttpRequest
+            // fetch('/book-appointment', { method: 'POST', body: new FormData(this) });
+        } else {
+            alert('Please fill in all required fields.');
+        }
+    });
+</script>
+
+</body>
+</html>

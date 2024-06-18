@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Bill Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator {
+            background-color: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .calculator h2 {
+            margin-bottom: 1em;
+        }
+        .calculator .form-group {
+            margin-bottom: 1em;
+        }
+        .calculator .form-group label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+        .calculator .form-group input {
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .calculator .form-group button {
+            width: 100%;
+            padding: 0.5em;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .calculator .form-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Hospital Bill Calculator</h2>
+    <div class="form-group">
+        <label for="service">Service:</label>
+        <input type="text" id="service" placeholder="Enter service name">
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" min="1" value="1">
+    </div>
+    <div class="form-group">
+        <label for="unitPrice">Unit Price:</label>
+        <input type="number" id="unitPrice" min="0" step="0.01" value="0.00">
+    </div>
+    <div class="form-group">
+        <button onclick="calculateBill()">Calculate Total</button>
+    </div>
+    <div class="form-group">
+        <label for="total">Total Amount:</label>
+        <input type="text" id="total" readonly>
+    </div>
+</div>
+
+<script>
+    function calculateBill() {
+        const quantity = parseFloat(document.getElementById('quantity').value);
+        const unitPrice = parseFloat(document.getElementById('unitPrice').value);
+        
+        if (!isNaN(quantity) && !isNaN(unitPrice)) {
+            const total = quantity * unitPrice;
+            document.getElementById('total').value = total.toFixed(2);
+        } else {
+            alert('Please enter valid quantity and unit price.');
+        }
+    }
+</script>
+
+</body>
+</html>
