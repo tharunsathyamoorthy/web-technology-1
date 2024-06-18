@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration Form</title>
+<style>
+  .error { color: red; }
+  .container {border: 2px solid black;
+            width: 50%;
+            margin: auto;
+            background-color: gray;
+            color: black;
+            padding: 10px;}
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="number"],
+  input[type="file"],
+  input[type="rollnumber"],
+  textarea,
+  select {
+    border: 1px solid black;
+    padding: 5px;
+    width: 70%;
+    box-sizing: border-box;
+    margin-bottom: 10px; 
+        }
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Student Registration Form</h2>
+<form id="registrationForm" onsubmit="return validateForm()">
+  <label for="firstName">First Name :</label>
+  <input type="text" id="firstName" name="firstName"><br>
+  <span id="firstNameError" class="error"></span><br>
+
+  <label for="lastName">Last Name :</label>
+  <input type="text" id="lastName" name="lastName"><br>
+  <span id="lastNameError" class="error"></span><br>
+  
+  <label for="rollno">RollNo   :</label>
+  <input type="text" id="rollno" name="rollno"><br>
+  <span id="rollnoError" class="error"></span><br>
+
+  <label>Gender:<br>
+    <input type="radio" id="male" name="Gender" value="HTML">
+      <label for="male">Male</label><br>
+      <input type="radio" id="female" name="Gender" value="CSS">
+      <label for="female">Female</label><br>
+      <input type="radio" id="other" name="Gender" value="JavaScript">
+      <label for="other">Other</label><br>
+  </label>
+  <label for="email">Email   :</label>
+  <input type="text" id="email" name="email"><br>
+  <span id="emailError" class="error"></span><br>
+  
+  <label>Department:
+  <select class="in" name="deparment">
+    <option></option>
+    <option>CSE</option>
+    <option>CSD</option>
+    <option>IT</option>
+    <option>EEE</option>
+    <option>ECE</option>
+    <option>EIE</option>
+    <option>AIML</option>
+    <option>AIDS</option>
+    <option>MECH</option>
+    <option>CIVIL</option>
+    <option>FT</option>
+    <option>CHEM</option>
+  </select>
+  </label><br>
+  <label>Programming languages:<br>
+  <input type="checkbox" class="check" value="c">C
+  <input type="checkbox" class="check" value="c++">C++
+  <input type="checkbox" class="check" value="java">Java
+  <input type="checkbox" class="check" value="python">Python<br>
+  </label><br>
+  <label>Known languages:</label><br>
+  <input type="checkbox" class="check" value="tamil">Tamil
+  <input type="checkbox" class="check" value="english">English
+  <input type="checkbox" class="check" value="other">Other<br>
+  </label><br>
+  <label>Area of intrest:
+    <select class="in" name="Area of interest">
+      <option></option>
+      <option>UI/UX</option>
+      <option>App development</option>
+      <option>Gaming</option>
+      <option>Full stack developer</option>
+      <option>Other</option>
+    </select>
+  </label><br>
+  <label for="address">Address:</label>
+  <input type="text" id="address" name="address"><br>
+  <span id="addressError" class="error"></span><br>
+  <label for="state">State:</label>
+  <input type ="text" id="state" name="state"><br>
+  <span id="stateError" class="error"></span><br>
+  <label>District:
+    <select class="in" name="district">
+      <option></option>
+      <option>Karur</option>
+      <option>Namakkal</option>
+      <option>Tirupur</option>
+      <option>Coimbatore</option>
+      <option>Trichy</option>
+      <option>Erode</option>
+      <option>Madurai</option>
+      <option>Chennai</option>
+      <option>Salem</option>
+      <option>Thanjavur</option>
+      <option>Dharmapuri</option>
+      <option>Kanyakumari</option>
+    </select>
+  </label><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+<script>
+function validateForm() {
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
+  var email = document.getElementById("email").value;
+  var rollno = document.getElementById("rollno").value;
+  var state = document.getElementById("state").value;
+  var address = document.getElementById("address").value;
+  var isValid = true;
+ 
+  // Reset errors
+  document.getElementById("firstNameError").innerHTML = "";
+  document.getElementById("lastNameError").innerHTML = "";
+  document.getElementById("rollnoError").innerHTML = "";
+  document.getElementById("emailError").innerHTML = "";
+  document.getElementById("stateError").innerHTML ="";
+  document.getElementById("addressError").innerHTML ="";
+
+  // Validation
+  if (firstName === "") {
+    document.getElementById("firstNameError").innerHTML = "First name is required";
+    isValid = false;
+  }
+  if (lastName === "") {
+    document.getElementById("lastNameError").innerHTML = "Last name is required";
+    isValid = false;
+  }
+  if (rollno ===""){
+    document.getElementById("rollnoError").innerHTML = "Roll number is required";
+    isValid = false;
+  }
+  else if (!isValidRollno(rollno)){
+    document.getElementById("rollnoError").innerHTML = "Invalid format";
+    isValid = false;
+  }
+  if (email === "") {
+    document.getElementById("emailError").innerHTML = "Email is required";
+    isValid = false;
+  } else if (!isValidEmail(email)) {
+    document.getElementById("emailError").innerHTML = "Invalid email format";
+    isValid = false;
+  }
+  if (state === "") {
+    document.getElementById("stateError").innerHTML = "State is required";
+    isValid = false;
+  }
+  if (address === "") {
+    document.getElementById("addressError").innerHTML = "Address is required";
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+function isValidEmail(email) {
+  // Very basic email validation
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function isValidRollno(rollno){
+    return /^\d+[A-Za-z]+\d+$/.test(rollno);
+}
+</script>
+
+</body>
+</html>

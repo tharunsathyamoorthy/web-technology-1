@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRATION FORM VALIDATION</title>
+    <style>
+        #table1 {
+            border: 2px solid black;
+            margin: auto;
+            padding: 10px;
+            background-color: plum;
+        }
+        tr {
+            padding: 10px;
+        }
+        td {
+            padding: 10px;
+        }
+        textarea {
+            width: 200px;
+            height: 100px;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return validateForm()">
+        <h1><center>REGISTRATION FORM </center></h1>
+        <table id="table1" border="1">
+            <tr>
+                <td><label for="FIRST_NAME">FIRST NAME</label></td>
+                <td><input type="text" id="FIRST_NAME" name="FIRST_NAME" required/><br><span id="firstNameError" class="error-message"></span></td>
+            </tr>
+            <tr>
+                <td><label for="LAST_NAME">LAST NAME</label></td>
+                <td><input type="text" id="LAST_NAME" name="LAST_NAME" required/><br><span id="lastNameError" class="error-message"></span></td>
+            </tr>
+            <tr>
+                <td><label>GENDER</label></td>
+                <td>
+                    <input type="radio" name="GENDER" id="male_radio" value="male" >MALE
+                    <input type="radio" name="GENDER" id="female_radio" value="female">FEMALE
+                    <br><span id="genderError" class="error-message"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label>LANGUAGE KNOWN</label></td>
+                <td>
+                    <input type="checkbox" name="LANGUAGEKNOWN" id="english_checkbox" value="ENGLISH">ENGLISH
+                    <input type="checkbox" name="LANGUAGEKNOWN" id="tamil_checkbox" value="TAMIL">TAMIL
+                    <input type="checkbox" name="LANGUAGEKNOWN" id="hindi_checkbox" value="HINDI">HINDI
+                    <br><span id="languageError" class="error-message"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="DISTRICT">DISTRICT</label></td>
+                <td>
+                    <select id="DISTRICT" name="DISTRICT" required>
+                        <option value="">select type</option>
+                        <option value="CHENNAI">CHENNAI</option>
+                        <option value="ERODE">ERODE</option>
+                        <option value="KALLAKURICHI">KALLAKURICHI</option>
+                        <option value="SALEM">SALEM</option>
+                        <option value="VILLUPURAM">VILLUPURAM</option>
+                    </select>
+                    <br><span id="districtError" class="error-message"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="ADDRESS" >ADDRESS</label></td>
+                <td><textarea id="ADDRESS" name="ADDRESS" required></textarea><br><span id="addressError" class="error-message"></span></td>
+            </tr>
+            <tr>
+                <td><label for="EMAIL" required>EMAIL</label></td>
+                <td><input type="email" id="EMAIL" name="EMAIL" required/><br><span id="emailError" class="error-message"></span></td>
+            </tr>
+            <tr>
+                <td><label for="MOBILE_NUMBER" required>MOBILE NUMBER</label></td>
+                <td><input type="text" id="MOBILE_NUMBER" name="MOBILE_NUMBER" required/><br><span id="mobileError" class="error-message"></span></td>
+            </tr>
+            <tr>
+                <td><label for="USERNAME" required>USERNAME</label></td>
+                <td><input type="text" id="USERNAME" name="USERNAME" required/><br><span id="usernameError" class="error-message"></span></td>
+            </tr>
+            <tr>
+                <td><label for="PAN_NUMBER" required>PAN NUMBER</label></td>
+                <td><input type="text" id="PAN_NUMBER" name="PAN_NUMBER" required/><br><span id="panError" class="error-message"></span></td>
+            </tr>
+            
+            <tr>
+                <td><label for="PASSWORD" required>PASSWORD</label></td>
+                <td><input type="password" id="PASSWORD" name="PASSWORD" required/><br><span id="passwordError" class="error-message"></span></td>
+            </tr>
+            <tr>
+                <td><label for="CONFIRM_PASSWORD" required>CONFIRM PASSWORD</label></td>
+                <td><input type="password" id="CONFIRM_PASSWORD" name="CONFIRM_PASSWORD" required/><br><span id="confirmPasswordError" class="error-message"></span></td>
+            </tr>
+            
+            <tr>
+                <td><input type="submit" value="SUBMIT"/></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function validateFirstName() {
+            var firstName = document.getElementById("FIRST_NAME").value;
+            if (!/^[a-zA-Z_]+$/.test(firstName)) {
+                document.getElementById("firstNameError").innerHTML = "Name should only contain alphabets and underscore.";
+            } else {
+                document.getElementById("firstNameError").innerHTML = "";
+            }
+        }
+
+        function validateLastName() {
+            var lastName = document.getElementById("LAST_NAME").value;
+            if (!/^[a-zA-Z_]+$/.test(lastName)) {
+                document.getElementById("lastNameError").innerHTML = "Name should only contain alphabets and underscore.";
+            } else {
+                document.getElementById("lastNameError").innerHTML = "";
+            }
+        }
+
+        function validateGender() {
+            var genderMale = document.getElementById("male_radio").checked;
+            var genderFemale = document.getElementById("female_radio").checked;
+            if (!genderMale && !genderFemale) {
+                document.getElementById("genderError").innerHTML = "Please select a gender.";
+            } else {
+                document.getElementById("genderError").innerHTML = "";
+            }
+        }
+
+        function validateLanguagesKnown() {
+            var languagesKnown = document.querySelectorAll('input[name="LANGUAGEKNOWN"]:checked').length;
+            if (languagesKnown === 0) {
+                document.getElementById("languageError").innerHTML = "Please select at least one language.";
+            } else {
+                document.getElementById("languageError").innerHTML = "";
+            }
+        }
+
+        function validateDistrict() {
+            var district = document.getElementById("DISTRICT").value;
+            if (district === "") {
+                document.getElementById("districtError").innerHTML = "Please select a district.";
+            } else {
+                document.getElementById("districtError").innerHTML = "";
+            }
+        }
+
+        function validateAddress() {
+            var address = document.getElementById("ADDRESS").value;
+            if (address.length < 1) {
+                document.getElementById("addressError").innerHTML = "Address should contain at least one character.";
+            } else {
+                document.getElementById("addressError").innerHTML = "";
+            }
+        }
+
+        function validateEmail() {
+            var email = document.getElementById("EMAIL").value;
+            if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(email)) {
+                document.getElementById("emailError").innerHTML = "Invalid email address.";
+            } else {
+                document.getElementById("emailError").innerHTML = "";
+            }
+        }
+
+        function validateMobileNumber() {
+            var mobileNumber = document.getElementById("MOBILE_NUMBER").value;
+            if (!/^\d{10}$/.test(mobileNumber)) {
+                document.getElementById("mobileError").innerHTML = "Mobile number must be 10 digits long.";
+            } else {
+                document.getElementById("mobileError").innerHTML = "";
+            }
+        }
+
+        function validateUsername() {
+            var username = document.getElementById("USERNAME").value;
+            if (!/^[a-zA-Z]\w*$/.test(username)) {
+                document.getElementById("usernameError").innerHTML = "Username can contain alphanumeric and underscore and should start with alphabets.";
+            } else {
+                document.getElementById("usernameError").innerHTML = "";
+            }
+        }
+        function validatePANNumber() {
+    var panNumber = document.getElementById("PAN_NUMBER").value;
+    if (!/^[A-Z]{5}[0-9]{3}[A-Z]{1}$/.test(panNumber)) {
+        document.getElementById("panError").innerHTML = "Invalid PAN number format.";
+    } else {
+        document.getElementById("panError").innerHTML = "";
+    }
+}
+
+        function validatePassword() {
+            var password = document.getElementById("PASSWORD").value;
+            if (!/^[a-zA-Z][a-zA-Z0-9*@/]{7,}$/.test(password)) {
+                document.getElementById("passwordError").innerHTML = "Password should start with alphabets and contain alphanumeric and special characters * @ /.";
+            } else {
+                document.getElementById("passwordError").innerHTML = "";
+            }
+        }
+
+        function validateConfirmPassword() {
+            var password = document.getElementById("PASSWORD").value;
+            var confirmPassword = document.getElementById("CONFIRM_PASSWORD").value;
+            if (password !== confirmPassword) {
+                document.getElementById("confirmPasswordError").innerHTML = "Passwords do not match.";
+            } else {
+                document.getElementById("confirmPasswordError").innerHTML = "";
+            }
+        }
+
+        document.getElementById("FIRST_NAME").addEventListener("blur", validateFirstName);
+        document.getElementById("LAST_NAME").addEventListener("blur", validateLastName);
+        document.getElementById("male_radio").addEventListener("blur", validateGender);
+        document.getElementById("female_radio").addEventListener("blur", validateGender);
+        document.getElementById("english_checkbox").addEventListener("blur", validateLanguagesKnown);
+        document.getElementById("tamil_checkbox").addEventListener("blur", validateLanguagesKnown);
+        document.getElementById("hindi_checkbox").addEventListener("blur", validateLanguagesKnown);
+        document.getElementById("DISTRICT").addEventListener("blur", validateDistrict);
+        document.getElementById("ADDRESS").addEventListener("blur", validateAddress);
+        document.getElementById("EMAIL").addEventListener("blur", validateEmail);
+        document.getElementById("MOBILE_NUMBER").addEventListener("blur", validateMobileNumber);
+        document.getElementById("USERNAME").addEventListener("blur", validateUsername);
+        document.getElementById("PAN_NUMBER").addEventListener("blur", validatePANNumber);
+
+        document.getElementById("PASSWORD").addEventListener("blur", validatePassword);
+        document.getElementById("CONFIRM_PASSWORD").addEventListener("blur", validateConfirmPassword);
+
+        function validateForm() {
+    validateFirstName();
+    validateLastName();
+    validateGender();
+    validateLanguagesKnown();
+    validateDistrict();
+    validateAddress();
+    validateEmail();
+    validateMobileNumber();
+    validateUsername();
+    validatePANNumber();
+    validatePassword();
+    validateConfirmPassword();
+
+    var firstNameError = document.getElementById("firstNameError").innerHTML;
+    var lastNameError = document.getElementById("lastNameError").innerHTML;
+    var genderError = document.getElementById("genderError").innerHTML;
+    var languageError = document.getElementById("languageError").innerHTML;
+    var districtError = document.getElementById("districtError").innerHTML;
+    var addressError = document.getElementById("addressError").innerHTML;
+    var emailError = document.getElementById("emailError").innerHTML;
+    var mobileError = document.getElementById("mobileError").innerHTML;
+    var usernameError = document.getElementById("usernameError").innerHTML;
+    var PANError = document.getElementById("PANError").innerHTML;
+    var passwordError = document.getElementById("passwordError").innerHTML;
+    var confirmPasswordError = document.getElementById("confirmPasswordError").innerHTML;
+
+    if (
+        firstNameError === "" &&
+        lastNameError === "" &&
+        genderError === "" &&
+        languageError === "" &&
+        districtError === "" &&
+        addressError === "" &&
+        emailError === "" &&
+        mobileError === "" &&
+        usernameError === "" &&
+        panerror=== "" &&
+        passwordError === "" &&
+        confirmPasswordError === ""
+    ) {
+        alert("Form submitted successfully.");
+        return true;
+    } else {
+        alert("Please fill out all required fields correctly.");
+        return false;
+    }
+}
+    </script>
+</body>
+</html>
