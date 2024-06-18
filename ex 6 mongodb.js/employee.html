@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form (GET)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        select,
+        input[type="radio"] {
+            width: calc(100% - 22px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-group input[type="radio"] {
+            width: auto;
+            margin-bottom: 0;
+        }
+        .form-group select {
+            width: 100%;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-group button {
+            width: calc(25% - 5px);
+        }
+    </style>
+</head>
+<body>
+    <h1>EMPLOYEE DETAILS</h1>
+    <form id="form" method="get">
+        <div class="form-group">
+            <label for="username">EMPLOYEE NAME:</label>
+            <input type="text" id="username" name="username" value="">
+        </div>
+       
+        <div class="form-group">
+            <label for="id">EMPLOYEE ID:</label>
+            <input type="text" id="id" name="id" value="">
+        </div>
+       
+        <div class="form-group">
+            <label for="branch">BRANCH:</label>
+            <select id="branch" name="branch">
+                <option value="select">Select any one Branch</option>
+                <option value="Headquarters">Headquarters</option>
+                <option value="Development">Development</option>
+                <option value="Quality Assurance">Quality Assurance</option>
+                <option value="Customer Support">Customer Support</option>
+                <option value="Sales">Sales</option>
+            </select>
+        </div>
+       
+        <div class="form-group">
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+        </div>
+
+        <div class="form-group">
+            <label for="phno">MOBILE NO:</label>
+            <input type="text" id="phno" name="phno" value="">
+        </div>
+       
+        <div class="form-group">
+            <label for="branchadd">BRANCH ADDRESS:</label>
+            <input type="text" id="branchadd" name="branchadd" value="">
+        </div>
+
+        <div class="button-group">
+            <button type="submit" onclick="set('/insert', event)">Insert</button>
+            <button type="submit" onclick="set('/delete', event)">Delete</button>
+            <button type="submit" onclick="set('/update', event)">Update</button>
+            <button type="submit" onclick="set('/display', event)">Result</button>
+        </div>
+    </form>
+
+    <script>
+        function set(path, event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            document.getElementById('form').action = 'http://localhost:7050' + path;
+            document.getElementById('form').submit(); // Submit the form after setting the action
+        }
+    </script>
+</body>
+</html>
