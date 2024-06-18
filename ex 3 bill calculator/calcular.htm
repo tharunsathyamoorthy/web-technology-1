@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TANGEDCO Bill Payment</title>
+<style>
+    body {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url("https://dtnext-prod.s3.ap-south-1.amazonaws.com/imported/import/Articles/2020/Jun/202006040429195191_EB-bill-deadline-extended-till-July-for-four-districts_SECVPF.gif");
+        background-size: 100% 100%;
+        background-position: center;
+        padding-left: 20px; 
+        color: black;
+        font-size: large;
+    }
+    .container {
+        text-align: center;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+    .form-group input, .form-group select {
+        width: 200px;
+        padding: 5px;
+    }
+</style>
+<script>
+function calculateBill() {
+    var unitsConsumed = parseFloat(document.getElementById("unitsConsumed").value);
+    var fixedCharge = 30; 
+    var unitCharge = 3.50; 
+    var totalBill = fixedCharge + (unitsConsumed * unitCharge);
+    document.getElementById("totalBill").innerHTML = "Total Bill: Rs. " + totalBill.toFixed(2);
+    document.getElementById("payButton").disabled = false;
+}
+
+function payBill() {
+    var totalBill = parseFloat(document.getElementById("totalBill").innerText.split(": ")[1]);
+    alert("Redirecting to payment gateway. Total amount to be paid: Rs. " + totalBill.toFixed(2));
+}
+
+function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    if (username === "admin" && password === "password") {
+        document.querySelector('.login-container').style.display = 'none';
+        document.querySelector('.calculator-container').style.display = 'block';
+    } else {
+        alert("Invalid username or password. Please try again.");
+    }
+}
+</script>
+</head>
+<body>
+<div class="container login-container">
+    <h2>TANGEDCO Bill Payment</h2>
+    <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="button" onclick="login()">Login</button>
+    </form>
+</div>
+
+<div class="container calculator-container" style="display: none;">
+    <h2>TANGEDCO Bill Calculator</h2>
+    <form>
+        <div class="form-group">
+            <label for="serviceNumber">Service Number:</label>
+            <span><input type="text" id="serviceNumber" name="serviceNumber" required></span>
+        </div>
+        <div class="form-group">
+            <label for="name">Name of the Service Holder:</label>
+            <span><input type="text" id="name" name="name" required></span>
+        </div>
+        <div class="form-group">
+            <label for="unitsConsumed">Enter Units Consumed:</label>
+            <span><input type="number" id="unitsConsumed" name="unitsConsumed" min="0" step="any" required></span>
+        </div>
+        <div class="form-group">
+            <label for="tariff">Tariff Check:</label>
+            <span>
+                <select id="tariff" name="tariff" required>
+                    <option value="">Select Tariff</option>
+                    <option value="Domestic">Domestic</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Industrial">Industrial</option>
+                </select>
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="billingCycle">Billing Cycle:</label>
+            <span>
+                <select id="billingCycle" name="billingCycle" required>
+                    <option value="">Select Billing Cycle</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Bi-Monthly">Bi-Monthly</option>
+                    <option value="Quarterly">Quarterly</option>
+                </select>
+            </span>
+        </div>
+        <button type="button" onclick="calculateBill()">Calculate Bill</button>
+    </form>
+    <div id="totalBill" style="margin-top: 10px;"></div>
+    <button id="payButton" onclick="payBill()" disabled style="margin-top: 10px;">Pay Now</button>
+</div>
+
+</body>
+</html>
